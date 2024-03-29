@@ -1,0 +1,27 @@
+---
+from app import POSTS
+page.posts = POSTS
+---
+{% extends "layout.html" %}
+
+{% block body %}
+<h1>My blog</h1>
+<ul>
+    {% for post in posts %}
+        <li><a href="{{ url_for("[slug]", slug=post["slug"]) }}">{{post["title"]}}</a></li>
+    {% endfor %}
+</ul>
+<hr>
+<h2>New post</h2>
+<form action="{{url_for("create")}}" method="POST">
+    <p>
+        <label>Title:</label>
+        <input type="text" name="title" required>
+    </p>
+    <p>
+        <label>Content:</label>
+        <textarea name="content"></textarea>
+    </p>
+    <button type="submit">Post</button>
+</form>
+{% endblock %}
