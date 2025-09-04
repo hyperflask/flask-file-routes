@@ -39,25 +39,35 @@ def post():
 
 Go to <http://localhost:5000>.
 
-## Page file format
+## Dynamic pages
 
-Pages can use the following format:
+Dynamic pages can use the following formats:
 
-- **html**: a standard jinja template with no additional code execution
-- **md**: a standard jinja template that will be rendered using markdown
 - **jpy**: jinjapy hybrid format that let you execute code before rendering the template
+- **py**: python code only
 
 A jinjapy file contains 2 sections:
 
-- A frontmatter with some Python code (enclosed by lines containg 3 dashes "---")
+- Some Python code enclosed by lines containg 3 dashes "---"
 - A body containing some Jinja template code
 
 Both are optional:
 
-- If the frontmatter is missing, the file only contains a Jinja template
-- If the frontmatter is left unclosed (the file starts with "---" on a single line followed by some python code), the file has no template
+- If the python code is missing, the file only contains a Jinja template
+- If the python code is left unclosed (the file starts with "---" on a single line followed by some python code), the file has no template
 
 The python code has a few global variables injected when executed: `page`, `request`, `abort`, `redirect`, `url_for`, `current_app`, `render_template`.
+
+## Static pages
+
+No python code will be executed on static pages.
+
+Static pages can use the following formats:
+
+- **html**: a standard jinja template
+- **md**: a standard jinja template that will be rendered using markdown
+
+All formats can have a YAML frontmatter defining variables that will be injected in the page object.
 
 ## How routing works
 
@@ -117,3 +127,10 @@ else:
 ---
 {{message}}
 ```
+
+# Special page properties
+
+Setting some properties on the page obejct will affect how the template is rendered:
+
+- `page.is_markdown`: after the jinja template is rendered, it will be processed by the markdown converter
+- `page.layout`: wrap the page output in a layout. This should be a template path that will be extended. You can specify the name of the block to override after a colon (eg: `layout.html:my_block`)

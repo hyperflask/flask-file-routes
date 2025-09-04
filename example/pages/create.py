@@ -1,10 +1,10 @@
 from app import POSTS
 
-def POST():
+def post():
     slug = request.form["title"].lower().replace(" ", "-")
     POSTS.append({
         "slug": slug,
         "title": request.form["title"],
         "content": request.form["content"]
     })
-    return redirect(url_for("[slug]", slug=slug))
+    return redirect(url_for("<slug>", slug=slug))

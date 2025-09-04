@@ -1,6 +1,6 @@
 ---
-page.layout = "layout.html:body"
+layout: "layout.html:body"
 ---
-# About
+# About in Markdown
 
 Lorem Ipsum

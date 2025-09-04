@@ -8,7 +8,7 @@ page.posts = POSTS
 <h1>My blog</h1>
 <ul>
     {% for post in posts %}
-        <li><a href="{{ url_for("[slug]", slug=post["slug"]) }}">{{post["title"]}}</a></li>
+        <li><a href="{{ url_for("<slug>", slug=post["slug"]) }}">{{post["title"]}}</a></li>
     {% endfor %}
 </ul>
 <hr>
